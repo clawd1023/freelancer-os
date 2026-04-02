@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freelancer OS — Complete Business System for Freelancers</title>
+  <meta name="description" content="Run your entire freelance business from one Notion workspace. Client CRM, project manager, invoice tracker, finance hub, content calendar and more." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0f0f0f;
+      --white: #ffffff;
+      --gray: #6b7280;
+      --light: #f9fafb;
+      --accent: #2563eb;
+      --accent-dark: #1d4ed8;
+      --border: #e5e7eb;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--black);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 100;
+    }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; }
+    .nav-cta {
+      background: var(--black);
+      color: white;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #eff6ff;
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--gray);
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--black);
+      color: white;
+      padding: 0.85rem 2rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-secondary {
+      background: var(--light);
+      color: var(--black);
+      padding: 0.85rem 2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover { background: #f3f4f6; }
+
+    /* SOCIAL PROOF */
+    .social-proof {
+      text-align: center;
+      padding: 1.5rem 2rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--light);
+    }
+
+    /* FEATURES */
+    .section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .section-label {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section h2 {
+      text-align: center;
+      font-size: clamp(1.6rem, 3vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--gray);
+      font-size: 1.05rem;
+      max-width: 540px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+    }
+    .feature-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.9rem; color: var(--gray); }
+
+    /* WHO IT'S FOR */
+    .for-section {
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .for-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 600px) { .for-grid { grid-template-columns: 1fr; } }
+    .for-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; }
+    .for-card h3 { font-weight: 700; margin-bottom: 1rem; font-size: 1rem; }
+    .for-card ul { list-style: none; }
+    .for-card ul li { padding: 0.3rem 0; font-size: 0.9rem; color: var(--gray); }
+    .for-card ul li::before { content: '→ '; color: var(--black); }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    @media (max-width: 600px) { .pricing-grid { grid-template-columns: 1fr; } }
+    .pricing-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+    }
+    .pricing-card.featured {
+      border: 2px solid var(--black);
+      position: relative;
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--black);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .pricing-card h3 { font-weight: 700; margin-bottom: 0.5rem; }
+    .pricing-card .price { font-size: 2.25rem; font-weight: 800; margin: 0.75rem 0; }
+    .pricing-card .price span { font-size: 1rem; font-weight: 500; color: var(--gray); }
+    .pricing-card ul { list-style: none; text-align: left; margin: 1.25rem 0 1.75rem; }
+    .pricing-card ul li { padding: 0.3rem 0; font-size: 0.875rem; color: var(--gray); }
+    .pricing-card ul li::before { content: '✓ '; color: #16a34a; font-weight: 700; }
+
+    /* FAQ */
+    .faq-list { max-width: 640px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
+    .faq-item h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .faq-item p { font-size: 0.9rem; color: var(--gray); }
+
+    /* CTA FOOTER */
+    .cta-footer {
+      background: var(--black);
+      color: white;
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+    .cta-footer h2 { font-size: clamp(1.6rem, 3vw, 2.25rem); font-weight: 800; margin-bottom: 1rem; }
+    .cta-footer p { color: #9ca3af; margin-bottom: 2rem; font-size: 1rem; }
+    .btn-white {
+      background: white;
+      color: var(--black);
+      padding: 0.85rem 2rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .btn-white:hover { opacity: 0.9; }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+      color: var(--gray);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">🧠 Freelancer OS</div>
+    <a class="nav-cta" href="https://buy.stripe.com/cNiaEP7oPdK7h1leun8so00" target="_blank">Get It Now — $49 CAD</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Notion Template</div>
+    <h1>Run your freelance business from one workspace</h1>
+    <p>Client CRM, project manager, invoice tracker, finance hub, content calendar, and more — all in Notion, all in one place.</p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="https://buy.stripe.com/cNiaEP7oPdK7h1leun8so00" target="_blank">Get Freelancer OS — $49 CAD</a>
+      <a class="btn-secondary" href="https://notion.so/33488ee99a1881ad9cffc4430e389de6" target="_blank">Try Free Version First</a>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <div class="social-proof">
+    Built for solo freelancers &amp; digital entrepreneurs &nbsp;·&nbsp; Works with free Notion &nbsp;·&nbsp; One-time purchase, yours forever
+  </div>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="section-label">What's Inside</div>
+    <h2>Everything you need. Nothing you don't.</h2>
+    <p class="section-sub">8 sections, 11 databases — built to replace every spreadsheet, sticky note, and half-finished system you're using right now.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🏠</div>
+        <h3>Home Dashboard</h3>
+        <p>Your daily command center. Start here every morning — today's priorities, deadlines, and quick links to every section.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Finance Hub</h3>
+        <p>Income log, expense tracker, monthly P&L, and a quarterly tax estimator. Know your numbers at all times.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3>Client CRM</h3>
+        <p>Every client in one place. Status, rates, contact info, contract status, and full history.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📁</div>
+        <h3>Project Manager</h3>
+        <p>Track every active project with deadlines, deliverables, priority level, and invoice status. Nothing falls through the cracks.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧾</div>
+        <h3>Invoice Tracker</h3>
+        <p>Log every invoice. See what's paid, pending, and overdue at a glance. Get paid on time, every time.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3>Content Calendar</h3>
+        <p>Plan and schedule all your marketing content across every platform. Includes a built-in idea bank.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Goals & Growth</h3>
+        <p>90-day goal tracker, habit tracker, and a monthly review template. Grow intentionally every month.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗂️</div>
+        <h3>Resource Vault</h3>
+        <p>Client onboarding checklist, rate calculator, contract essentials, CRA expense categories, and recommended tools.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="for-section">
+    <div class="section">
+      <div class="section-label">Who It's For</div>
+      <h2>Built for solo operators</h2>
+      <p class="section-sub">This is for people building something on their own — not for agencies or teams.</p>
+      <div class="for-grid">
+        <div class="for-card">
+          <h3>✅ This is for you if you're a...</h3>
+          <ul>
+            <li>Freelancer managing multiple clients</li>
+            <li>Digital product creator</li>
+            <li>Consultant or coach</li>
+            <li>Side hustler going full-time</li>
+            <li>Solo online business owner</li>
+          </ul>
+        </div>
+        <div class="for-card">
+          <h3>❌ This is NOT for you if you...</h3>
+          <ul>
+            <li>Run a team or agency</li>
+            <li>Need complex enterprise features</li>
+            <li>Don't use Notion</li>
+            <li>Want something fully automated</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section">
+    <div class="section-label">Pricing</div>
+    <h2>Start free. Upgrade when you're ready.</h2>
+    <p class="section-sub">Try the free income tracker first. When you're ready for the full system, it's a one-time purchase.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>Income Tracker</h3>
+        <div class="price">$0 <span>CAD</span></div>
+        <ul>
+          <li>Income Log</li>
+          <li>Expense Log</li>
+          <li>Monthly P&L Summary</li>
+          <li>Free forever</li>
+        </ul>
+        <a class="btn-secondary" href="https://notion.so/33488ee99a1881ad9cffc4430e389de6" target="_blank" style="display:block;">Get Free Template</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most Popular</div>
+        <h3>Freelancer OS</h3>
+        <div class="price">$49 <span>CAD</span></div>
+        <ul>
+          <li>Everything in free, plus:</li>
+          <li>Client CRM</li>
+          <li>Project Manager</li>
+          <li>Invoice Tracker</li>
+          <li>Content Calendar</li>
+          <li>Goals & Growth</li>
+          <li>Resource Vault</li>
+          <li>Free updates forever</li>
+        </ul>
+        <a class="btn-primary" href="https://buy.stripe.com/cNiaEP7oPdK7h1leun8so00" target="_blank" style="display:block;">Get Freelancer OS</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" style="padding-top: 0;">
+    <div class="section-label">FAQ</div>
+    <h2>Common questions</h2>
+    <p class="section-sub" style="margin-bottom: 2.5rem;"></p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Do I need a paid Notion account?</h3>
+        <p>No. The free Notion plan is all you need to use this template.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How do I get the template?</h3>
+        <p>After purchase, you'll receive a link. Click it to duplicate the full template into your own Notion workspace. Takes about 30 seconds.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is this a one-time purchase?</h3>
+        <p>Yes. Pay once, use forever. All future updates are included at no extra cost.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is this only for Canadians?</h3>
+        <p>The finance section uses CAD and includes Canadian tax references, but it works for any freelancer anywhere. Currency labels are easy to rename.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What if I need help setting it up?</h3>
+        <p>Every section has instructions built in. There's also a Quick Start guide on the home page of the template.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FOOTER -->
+  <section class="cta-footer">
+    <h2>Ready to run your business like a business?</h2>
+    <p>One workspace. Everything you need. One-time purchase.</p>
+    <a class="btn-white" href="https://buy.stripe.com/cNiaEP7oPdK7h1leun8so00" target="_blank">Get Freelancer OS — $49 CAD</a>
+  </section>
+
+  <footer>
+    <p>© 2025 Freelancer OS · Built with ❤️ for solo freelancers</p>
+  </footer>
+
+</body>
+</html>
